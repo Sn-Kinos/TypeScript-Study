@@ -1,20 +1,94 @@
-let count = 0;
-count += 1;
-// count = '갑분문'; // 절 대 안 되 지
+function sum(x: number, y: number): number {
+    return x + y;
+}
+sum(1, 2);
 
-const message: string = 'hello world';
-console.log(message);
+function sumArray(numbers: number[]): number {
+    return numbers.reduce((previousValue, currentValue) => {
+        return previousValue + currentValue
+    }, 0)
+}
 
-const done: boolean = true;
+const total = sumArray([1,2,3,4,5]);
 
-const numbers: number[] = [1,2,3];
-const messages: string[] = ['hello', 'world'];
+function returnNothing(): void {
+    console.log('I am just saying hello world')
+}
 
-// messages.push(1) // 절 대 안 되 지
+interface Shape {
+    getArea(): number;
+}
 
-let mightBeUndefined: string | undefined = undefined;
-let nullableNumber: number | null = null;
+class Circle implements Shape {
+    constructor(public radius: number) {
+        this.radius = radius;
+    }
 
-let color: 'red' | 'orange' | 'yellow' = 'red';
-color = 'yellow';
-// color = 'green'; // 절 대 안 되 지
+    getArea(): number {
+        return this.radius * this.radius * Math.PI;
+    }
+}
+
+class Rectangle implements Shape {
+    constructor(private width: number, private height: number) {
+        this.width = width;
+        this.height = height;
+    }
+    getArea(): number {
+        return this.width * this.height
+    }
+}
+
+const shapes: Shape[] = [new Circle(5), new Rectangle(317, 68)]
+shapes.map(value => {
+    console.log(value.getArea());
+});
+
+const circle = new Circle(5);
+
+interface Person {
+    name: string;
+    age?: number;
+}
+
+interface Developer extends Person {
+    skills: string[];
+}
+
+const person: Person = {
+    name: '미우',
+    age: 20,
+};
+
+const expert: Developer = {
+    name: '에리스',
+    skills: ['C#', 'Unity'],
+};
+
+const people: Person[] = [person, expert];
+
+type Kodex = {
+    name: string;
+    lvl?: number;
+};
+
+type Heal = Kodex & {
+    skills: string[];
+};
+
+function merge<miu, sella>(a: miu, b: sella): miu & sella {
+    return {
+        ...a,
+        ...b,
+    };
+}
+
+const merged = merge({miu: 1}, {sella: 1});
+
+function wrap<T>(param: T) {
+    return {
+        param
+    }
+}
+
+const wrapped = wrap(10);
